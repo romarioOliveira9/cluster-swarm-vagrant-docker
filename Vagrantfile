@@ -4,7 +4,8 @@
 machines = {
   "master" => {"memory" => "1024", "cpu" => "1", "ip" => "100", "image" => "bento/ubuntu-22.04"},
   "node01" => {"memory" => "1024", "cpu" => "1", "ip" => "101", "image" => "bento/ubuntu-22.04"},
-  "node02" => {"memory" => "1024", "cpu" => "1", "ip" => "102", "image" => "bento/ubuntu-22.04"}
+  "node02" => {"memory" => "1024", "cpu" => "1", "ip" => "102", "image" => "bento/ubuntu-22.04"},
+  "node03" => {"memory" => "1024", "cpu" => "1", "ip" => "103", "image" => "bento/ubuntu-22.04"}
 }
 
 Vagrant.configure("2") do |config|
@@ -30,4 +31,12 @@ Vagrant.configure("2") do |config|
 
     end
   end
+
+  config.vm.box = "hashicorp/bionic64"
+  config.vm.provision "docker" do |d|
+    d.run "ubuntu",
+      cmd: "bash -l",
+      args: "-v '/vagrant:/var/www'"
+  end
+
 end
